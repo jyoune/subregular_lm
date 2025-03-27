@@ -27,7 +27,7 @@ def train_eval_bert(lora_rank: int, use_rs: bool, data, output:str):
                                       # eval_steps=5,
                                       label_names=["labels"],
                                       report_to="none",
-                                      per_device_train_batch_size=32)
+                                      per_device_train_batch_size=16)
     trainer = Trainer(
         model=lora_model,
         args=training_args,
