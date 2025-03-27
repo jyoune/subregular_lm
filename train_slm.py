@@ -4,6 +4,9 @@ import evaluate
 import torch
 from preprocess import load_data, compute_metrics
 
+# constant for iterating through all test sets
+TEST_EVAL_ORDER = ["test_sr", "test_sa", "test_lr", "test_la"]
+
 
 def tokenize_data(data):
     return tokenizer(data["string"], padding="max_length", truncation=True)
@@ -36,10 +39,12 @@ def train_eval_bert(lora_rank: int, use_rs: bool, data, output:str):
         compute_metrics=compute_metrics
     )
     trainer.train()
-    evaluated = trainer.evaluate(data["test_sr"])
-    print(evaluated)
-    with open("results.txt", "a") as f:
-        f.write(f"rank: {lora_rank}, use_rs: {use_rs} \n {evaluated} \n")
+    # iterate through all test sets in the constant
+    for test_set in TEST_EVAL_ORDER:
+        evaluated = trainer.evaluate(data[test_set])
+        print(evaluated)
+        with open("results.txt", "a") as f:
+            f.write(f"language: {directory}, test set: {test_set}, rank: {lora_rank}, use_rs: {use_rs} \n {evaluated} \n")
 
 
 if __name__ == "__main__":
