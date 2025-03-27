@@ -51,8 +51,7 @@ def compute_metrics(eval_pred):
     logits, labels = eval_pred
     predictions = np.argmax(logits, axis=-1)
     accuracy_dict = accuracy_metric.compute(predictions=predictions, references=labels)
-    f1_dict = f1_metric.compute(predictions=predictions, references=labels, average=None)["f1"]
+    f1_dict = f1_metric.compute(predictions=predictions, references=labels, average="macro")
     new_dict = {key: accuracy_dict[key] for key in accuracy_dict}
-    new_dict["f1_0"] = f1_dict[0]
-    new_dict["f1_1"] = f1_dict[1]
+    new_dict["f1"] = f1_dict
     return new_dict
