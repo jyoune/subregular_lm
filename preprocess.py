@@ -28,7 +28,7 @@ def process_data(directory, use_spaces: bool = False) -> dict[str, pd.DataFrame]
         if use_spaces:
             data["string"] = data["string"].apply(lambda x: ' '.join(x))
         # replace TRUE/FALSE with 1/0
-        data["label"] = data["label"].apply(lambda x: 1 if x == "TRUE" else 0)
+        data["label"] = data["label"].apply(lambda x: 1 if x == True else 0)
         file_dict[name] = data
     return file_dict
 
