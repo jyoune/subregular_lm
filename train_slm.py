@@ -12,7 +12,7 @@ def tokenize_data(data):
     return tokenizer(data["string"], padding="max_length", truncation=True)
 
 
-def train_eval_bert(lora_rank: int, use_rs: bool, data, output:str):
+def train_eval_bert(lora_rank: int, use_rs: bool, data, output_dir: str, out_file:str = "results.txt"):
     device = "cuda"
     model = CanineForSequenceClassification.from_pretrained("google/canine-c").to(device)
     config = LoraConfig(
@@ -24,7 +24,7 @@ def train_eval_bert(lora_rank: int, use_rs: bool, data, output:str):
         target_modules=["query", "value"]
     )
     lora_model = get_peft_model(model, config).to(device)
-    training_args = TrainingArguments(output_dir=output,
+    training_args = TrainingArguments(output_dir=output_dir,
                                       # logging_steps=100,
                                       eval_strategy="epoch",
                                       # eval_steps=5,
@@ -43,7 +43,7 @@ def train_eval_bert(lora_rank: int, use_rs: bool, data, output:str):
     for test_set in TEST_EVAL_ORDER:
         evaluated = trainer.evaluate(data[test_set])
         print(evaluated)
-        with open("results.txt", "a") as f:
+        with open(out_file, "a") as f:
             f.write(f"language: {directory}, test set: {test_set}, rank: {lora_rank}, use_rs: {use_rs} \n {evaluated} \n")
 
 
@@ -54,4 +54,4 @@ if __name__ == "__main__":
     f1_metric = evaluate.load("f1")
     dataset = load_data(directory, use_spaces=True)
     tokenized_dataset = dataset.map(tokenize_data, batched=True)
-    train_eval_bert(lora_rank=32, use_rs=False, data=tokenized_dataset, output="rank32")
+    train_eval_bert(lora_rank=32, use_rs=False, data=tokenized_dataset, output_dir="rank32_ZP", out_file="zp_results.txt")
