@@ -1,4 +1,4 @@
-from transformers import CanineTokenizer, CanineForSequenceClassification, Trainer, TrainingArguments
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
 from peft import LoraConfig, get_peft_model
 import evaluate
 import torch
@@ -24,7 +24,7 @@ def tokenize_data(data):
 
 def train_eval_bert(model_name: str, eval_only: bool, use_lora: bool, lora_rank: int, use_rs: bool, data, output_dir: str, out_file:str = "results.txt"):
     device = "cuda"
-    model = CanineForSequenceClassification.from_pretrained(model_name).to(device)
+    model = AutoModelForSequenceClassification.from_pretrained(model_name).to(device)
     config = LoraConfig(
         r=lora_rank,
         lora_alpha=32,
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     out_dir = args.out_dir
     results_file = args.results_file
     use_space = args.use_space
-    tokenizer = CanineTokenizer.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
     accuracy_metric = evaluate.load("accuracy")
     f1_metric = evaluate.load("f1")
     dataset = load_data(directory, use_spaces=use_space)
