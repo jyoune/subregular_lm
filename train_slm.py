@@ -1,7 +1,7 @@
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
 from peft import LoraConfig, get_peft_model
 import evaluate
-import torch
+import jsonlines
 from preprocess import load_data, compute_metrics
 import argparse
 parser = argparse.ArgumentParser()
@@ -64,8 +64,8 @@ def train_eval_bert(model_name: str, eval_only: bool, use_lora: bool, lora_rank:
     for test_set in TEST_EVAL_ORDER:
         evaluated = trainer.evaluate(data[test_set])
         print(evaluated)
-        with open(out_file, "a") as f:
-            f.write(f"language: {directory}, test set: {test_set}, rank: {lora_rank}, use_rs: {use_rs} \n {evaluated} \n")
+        with jsonlines.open(out_file, "a") as f:
+            f.write({"language": directory, "test_set":test_set, "accuracy":evaluated["eval_accuracy"], "f1":evaluated["eval_f1"]})
 
 
 if __name__ == "__main__":
