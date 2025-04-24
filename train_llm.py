@@ -7,7 +7,7 @@ import evaluate
 import jsonlines
 import os
 from huggingface_hub import login
-# login()
+login("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")
 
 
 #TODO: fix prompt function - include representation of regular language and ask about string membership?
@@ -34,10 +34,10 @@ def tokenize_data(data):
 
 
 def train_llm(model_name: str, data, output_dir: str, out_file:str = "results.txt"):
-    quantization_config = BitsAndBytesConfig(
-        load_in_4_bit=True,
-        bnb_4bit_quant_type="nf4"
-    )
+    #quantization_config = BitsAndBytesConfig(
+    #    load_in_4_bit=True,
+    #    bnb_4bit_quant_type="nf4"
+    #)
 
     peft_config = LoraConfig(
         r=4,
@@ -53,7 +53,7 @@ def train_llm(model_name: str, data, output_dir: str, out_file:str = "results.tx
         model_name,
         torch_dtype=torch.float16,
         device_map='auto',
-        quantization_config=quantization_config
+        #quantization_config=quantization_config
     )
     sft_args = SFTConfig(
         output_dir="llm_outputs",
@@ -65,15 +65,15 @@ def train_llm(model_name: str, data, output_dir: str, out_file:str = "results.tx
         gradient_checkpointing=True,
         num_train_epochs=3,
         per_device_train_batch_size=16,
-        do_eval=True,
-        eval_strategy="epoch"
+        do_eval=False,
+        #eval_strategy="epoch"
     )
     trainer = SFTTrainer(
         model=model,
         args=sft_args,
         tokenizer=tokenizer,
-        train_dataset=tokenized_dataset["train"],
-        eval_dataset=tokenized_dataset["dev"],
+        train_dataset=data["train"],
+        eval_dataset=data["dev"],
         peft_config=peft_config,
         formatting_func=prompt_example,
         compute_metrics=compute_metrics
@@ -95,15 +95,15 @@ if __name__ == "__main__":
     # device = "cpu"
     directory = "data/SL413"
     out_file = "llm_SL413.jsonl"
-    model_name = 'meta-llama/Llama-3.2-3B-Instruct'
+    model_name = 'meta-llama/Llama-3.2-1B'
     output_dir = "llama"
     accuracy_metric = evaluate.load("accuracy")
     f1_metric = evaluate.load("f1")
     tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=False)
     tokenizer.pad_token = tokenizer.eos_token
     dataset = load_data(directory=directory, use_spaces=True)
-    tokenized_dataset = dataset.map(tokenize_data, batched=True)
-    train_llm(model_name=model_name, data=tokenized_dataset, output_dir=output_dir, out_file=out_file)
+    # tokenized_dataset = dataset.map(tokenize_data, batched=True)
+    train_llm(model_name=model_name, data=dataset, output_dir=output_dir, out_file=out_file)
     
 
 
