@@ -7,7 +7,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("-model_name")
 parser.add_argument("-lang_dir")
-parser.add_argument("-eval_only")
+parser.add_argument("-eval_only", action="store_true")
 parser.add_argument("-use_lora")
 parser.add_argument("-use_space")
 parser.add_argument("-out_dir")
