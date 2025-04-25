@@ -33,7 +33,7 @@ def tokenize_data(data):
     return tokenizer(data["string"], padding="max_length", truncation=True)
 
 
-def train_llm(model_name: str, data, output_dir: str, out_file:str = "results.txt"):
+def train_llm(model_name: str, data):
     #quantization_config = BitsAndBytesConfig(
     #    load_in_4_bit=True,
     #    bnb_4bit_quant_type="nf4"
@@ -79,14 +79,8 @@ def train_llm(model_name: str, data, output_dir: str, out_file:str = "results.tx
         compute_metrics=compute_metrics
     )
     trainer.train()
-    trainer.save_model("./llama/llama_model")
-    # # iterate through all test sets in the constant
-    # for test_set in TEST_EVAL_ORDER:
-    #     evaluated = trainer.evaluate(data[test_set])
-    #     print(evaluated)
-    #     with jsonlines.open(out_file, "a") as f:
-    #         f.write({"language": directory, "test_set": test_set, "accuracy": evaluated["eval_accuracy"],
-    #                  "f1": evaluated["eval_f1"]})
+    trainer.save_model("./llama/llama_model_ZP")
+
 
 
 
@@ -94,8 +88,8 @@ if __name__ == "__main__":
     os.environ["HUGGINGFACE_HUB_TOKEN"] = "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"
     device = "cuda"
     # device = "cpu"
-    directory = "data/SL413"
-    out_file = "llm_SL413.jsonl"
+    directory = "data/ZP313"
+    out_file = "llm_ZP313.jsonl"
     model_name = 'meta-llama/Llama-3.2-3B'
     output_dir = "llama"
     accuracy_metric = evaluate.load("accuracy")
@@ -104,7 +98,7 @@ if __name__ == "__main__":
     tokenizer.pad_token = tokenizer.eos_token
     dataset = load_data(directory=directory, use_spaces=True)
     # tokenized_dataset = dataset.map(tokenize_data, batched=True)
-    train_llm(model_name=model_name, data=dataset, output_dir=output_dir, out_file=out_file)
+    train_llm(model_name=model_name, data=dataset)
     
 
 
