@@ -68,8 +68,8 @@ def compute_metrics(labels, predictions):
 if __name__ == "__main__":
     device = "cuda"
     # device = "cpu"
-    directory = "data/SL413"
-    out_file = "llm/llm_SL413.jsonl"
+    directory = "data/ZP313"
+    out_file = "llm/llm_ZP313.jsonl"
     base_model_name = 'meta-llama/Llama-3.2-3B-Instruct'
     output_dir = "llama"
     accuracy_metric = evaluate.load("accuracy")
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(base_model_name, use_fast=False)
     tokenizer.pad_token = tokenizer.eos_token
     dataset = load_data(directory=directory, use_spaces=True)
-    pretrained_model = "./llama/llama_model"
+    pretrained_model = "./llama/llama_model_ZP"
     base_model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map="auto", torch_dtype=torch.float16)
     model = PeftModel.from_pretrained(base_model, pretrained_model)
     evaluate_llm(model, tokenizer, dataset, out_file)
