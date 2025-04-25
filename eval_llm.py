@@ -6,6 +6,7 @@ from preprocess import load_data
 import evaluate
 import jsonlines
 import os
+from tqdm import tqdm
 
 TEST_EVAL_ORDER = ["test_sr", "test_sa", "test_lr", "test_la"]
 
@@ -32,13 +33,13 @@ def parse_predicted_label(generated_text):
 def eval_per_set(test_set, model, tokenizer):
     pred_labels = []
     gold_labels = []
-    for example in test_set:
+    for example in tqdm(test_set):
         gold_labels.append(example["label"])
         prompt = prompt_example(example)
         inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
         with torch.no_grad():
             # set max_new_tokens low to avoid OOM
-            outputs = model.generate(**inputs, max_new_tokens=5)
+            outputs = model.generate(**inputs, max_new_tokens=5, pad_token_id=tokenizer.pad_token_id)
         generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
         pred_label = parse_predicted_label(generated_text)
         pred_labels.append(pred_label)
@@ -52,8 +53,8 @@ def evaluate_llm(model, tokenizer, data, out_file):
         evaluated = eval_per_set(data[test_set], model, tokenizer)
         print(evaluated)
         with jsonlines.open(out_file, "a") as f:
-            f.write({"language": directory, "test_set": test_set, "accuracy": evaluated["eval_accuracy"],
-                     "f1": evaluated["eval_f1"]})
+            f.write({"language": directory, "test_set": test_set, "accuracy": evaluated["accuracy"],
+                     "f1": evaluated["f1"]})
 
 
 def compute_metrics(labels, predictions):
