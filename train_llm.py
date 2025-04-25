@@ -17,7 +17,7 @@ login("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")
 #TODO: write new eval function?
 #TODO: fix saving eval results
 
-TEST_EVAL_ORDER = ["test_sr", "test_sa", "test_lr", "test_la"]
+
 
 
 def prompt_example(example):
@@ -89,13 +89,14 @@ def train_llm(model_name: str, data, output_dir: str, out_file:str = "results.tx
     #                  "f1": evaluated["eval_f1"]})
 
 
+
 if __name__ == "__main__":
     os.environ["HUGGINGFACE_HUB_TOKEN"] = "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"
     device = "cuda"
     # device = "cpu"
     directory = "data/SL413"
     out_file = "llm_SL413.jsonl"
-    model_name = 'meta-llama/Llama-3.2-1B'
+    model_name = 'meta-llama/Llama-3.2-3B'
     output_dir = "llama"
     accuracy_metric = evaluate.load("accuracy")
     f1_metric = evaluate.load("f1")
