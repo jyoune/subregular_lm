@@ -33,7 +33,7 @@ def tokenize_data(data):
     return tokenizer(data["string"], padding="max_length", truncation=True)
 
 
-def train_llm(model_name: str, data):
+def train_llm(model_name: str, data, model_output:str):
     #quantization_config = BitsAndBytesConfig(
     #    load_in_4_bit=True,
     #    bnb_4bit_quant_type="nf4"
@@ -79,7 +79,7 @@ def train_llm(model_name: str, data):
         compute_metrics=compute_metrics
     )
     trainer.train()
-    trainer.save_model("./llama/llama_model_ZP")
+    trainer.save_model(model_output)
 
 
 
@@ -98,7 +98,7 @@ if __name__ == "__main__":
     tokenizer.pad_token = tokenizer.eos_token
     dataset = load_data(directory=directory, use_spaces=True)
     # tokenized_dataset = dataset.map(tokenize_data, batched=True)
-    train_llm(model_name=model_name, data=dataset)
+    train_llm(model_name=model_name, data=dataset, model_output="./llama/llama_model_ZP313")
     
 
 
