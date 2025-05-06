@@ -22,7 +22,7 @@ tokenizer.pad_token = tokenizer.eos_token
 directory = "data/ZP313"
 out_file = "llm/llm_ZP313_nospace.jsonl"
 dataset = load_data(directory=directory, use_spaces=False)
-train_llm(model_name=base_model_name, data=dataset, model_output="./llama/llama_model_ZP_nospace")
+train_llm(model_name=base_model_name, data=dataset, tokenizer=tokenizer, model_output="./llama/llama_model_ZP_nospace")
 # eval
 pretrained_model = "./llama/llama_model_ZP_nospace"
 base_model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map="auto", torch_dtype=torch.float16)
@@ -34,7 +34,7 @@ evaluate_llm(model, tokenizer, dataset, out_file)
 directory = "data/SL413"
 out_file = "llm/llm_SL413_nospace.jsonl"
 dataset = load_data(directory=directory, use_spaces=False)
-train_llm(model_name=base_model_name, data=dataset, model_output="./llama/llama_model_SL_nospace")
+train_llm(model_name=base_model_name, data=dataset, tokenizer=tokenizer, model_output="./llama/llama_model_SL_nospace")
 # eval
 pretrained_model = "./llama/llama_model_SL_nospace"
 base_model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map="auto", torch_dtype=torch.float16)
