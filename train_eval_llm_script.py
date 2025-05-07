@@ -27,7 +27,7 @@ train_llm(model_name=base_model_name, data=dataset, tokenizer=tokenizer, model_o
 pretrained_model = "./llama/llama_model_ZP_nospace"
 base_model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map="auto", torch_dtype=torch.float16)
 model = PeftModel.from_pretrained(base_model, pretrained_model)
-evaluate_llm(model, tokenizer, dataset, out_file)
+evaluate_llm(model, tokenizer, dataset, out_file, directory)
 
 # second training run
 
@@ -39,4 +39,4 @@ train_llm(model_name=base_model_name, data=dataset, tokenizer=tokenizer, model_o
 pretrained_model = "./llama/llama_model_SL_nospace"
 base_model = AutoModelForCausalLM.from_pretrained(base_model_name, device_map="auto", torch_dtype=torch.float16)
 model = PeftModel.from_pretrained(base_model, pretrained_model)
-evaluate_llm(model, tokenizer, dataset, out_file)
+evaluate_llm(model, tokenizer, dataset, out_file, directory)

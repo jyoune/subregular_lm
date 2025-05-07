@@ -47,7 +47,7 @@ def eval_per_set(test_set, model, tokenizer):
     return result
 
 
-def evaluate_llm(model, tokenizer, data, out_file):
+def evaluate_llm(model, tokenizer, data, out_file, directory):
     # iterate through all test sets in the constant
     for test_set in TEST_EVAL_ORDER:
         evaluated = eval_per_set(data[test_set], model, tokenizer)
