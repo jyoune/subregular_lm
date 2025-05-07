@@ -58,6 +58,8 @@ def evaluate_llm(model, tokenizer, data, out_file):
 
 
 def compute_metrics(labels, predictions):
+    accuracy_metric = evaluate.load("accuracy")
+    f1_metric = evaluate.load("f1")
     accuracy_dict = accuracy_metric.compute(predictions=predictions, references=labels)
     f1_dict = f1_metric.compute(predictions=predictions, references=labels, average="macro")
     new_dict = {key: accuracy_dict[key] for key in accuracy_dict}
@@ -72,8 +74,6 @@ if __name__ == "__main__":
     out_file = "llm/llm_ZP313.jsonl"
     base_model_name = 'meta-llama/Llama-3.2-3B-Instruct'
     output_dir = "llama"
-    accuracy_metric = evaluate.load("accuracy")
-    f1_metric = evaluate.load("f1")
     tokenizer = AutoTokenizer.from_pretrained(base_model_name, use_fast=False)
     tokenizer.pad_token = tokenizer.eos_token
     dataset = load_data(directory=directory, use_spaces=True)
