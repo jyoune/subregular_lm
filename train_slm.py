@@ -69,7 +69,6 @@ def train_eval_bert(model_name: str, eval_only: bool, use_lora: bool, lora_rank:
 
 
 if __name__ == "__main__":
-    # get args
     args = parser.parse_args()
     model_name = args.model_name
     eval_only = args.eval_only
