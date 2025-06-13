@@ -2,8 +2,6 @@ import pandas as pd
 import jsonlines
 import pathlib
 
-def process_language(lang_file):
-    pass
 
 
 def make_model_df(model_dir):
@@ -32,8 +30,8 @@ def make_model_df(model_dir):
                         results_dict["Long Adversarial Accuracy"] = json["accuracy"]
                         results_dict["Long Adversarial F1"] = json["f1"]["f1"]
         all_results.append(results_dict)
-    results_df = pd.DataFrame(all_results, columns=column_names)
-    return results_df
+    results_df = pd.DataFrame(all_results, columns=column_names).round(4)
+    return results_df.round(4)
 
 
 def average_across_langs(model_dirs: dict[str:str]):
@@ -45,7 +43,7 @@ def average_across_langs(model_dirs: dict[str:str]):
         curr_avg = make_model_df(model_dirs[model_name]).mean(axis=0, numeric_only=True)
         model_dict.update(curr_avg)
         avg_list.append(model_dict)
-    return pd.DataFrame(avg_list, columns=column_names)
+    return pd.DataFrame(avg_list, columns=column_names).round(4)
 
 
 def average_across_tests(model_dirs: dict[str:str]):
@@ -64,12 +62,12 @@ def average_across_tests(model_dirs: dict[str:str]):
         avg_dict[model_name + " Accuracy"] = curr_avg_acc
         curr_avg_f1 = curr_df.loc[:, ["Short Random F1", "Short Adversarial F1", "Long Random F1", "Long Adversarial F1"]].mean(axis=1, numeric_only=True)
         avg_dict[model_name + " F1"] = curr_avg_f1
-    return pd.DataFrame(avg_dict, columns=column_names)
+    return pd.DataFrame(avg_dict, columns=column_names).round(4)
 
 
 
 
 if __name__ == "__main__":
-    make_model_df("./bert_results_2")
+    make_model_df("results/bert_results_2")
 
 
