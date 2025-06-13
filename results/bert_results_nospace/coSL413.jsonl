@@ -1,0 +1,4 @@
+{"language": "./data/coSL413", "test_set": "test_sr", "accuracy": 0.926, "f1": {"f1": 0.9257162926937075}}
+{"language": "./data/coSL413", "test_set": "test_sa", "accuracy": 0.608, "f1": {"f1": 0.5406954171338607}}
+{"language": "./data/coSL413", "test_set": "test_lr", "accuracy": 0.912, "f1": {"f1": 0.9118561351094803}}
+{"language": "./data/coSL413", "test_set": "test_la", "accuracy": 0.656, "f1": {"f1": 0.6229168182124512}}

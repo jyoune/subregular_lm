@@ -1,0 +1,4 @@
+{"language": "./data/TSL416", "test_set": "test_sr", "accuracy": 0.9673, "f1": {"f1": 0.9672763208185076}}
+{"language": "./data/TSL416", "test_set": "test_sa", "accuracy": 0.5715, "f1": {"f1": 0.48104245672199897}}
+{"language": "./data/TSL416", "test_set": "test_lr", "accuracy": 0.9503, "f1": {"f1": 0.950273923148038}}
+{"language": "./data/TSL416", "test_set": "test_la", "accuracy": 0.6495, "f1": {"f1": 0.6269423967874941}}

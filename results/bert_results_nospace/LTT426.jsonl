@@ -1,0 +1,4 @@
+{"language": "./data/LTT426", "test_set": "test_sr", "accuracy": 1.0, "f1": {"f1": 1.0}}
+{"language": "./data/LTT426", "test_set": "test_sa", "accuracy": 1.0, "f1": {"f1": 1.0}}
+{"language": "./data/LTT426", "test_set": "test_lr", "accuracy": 1.0, "f1": {"f1": 1.0}}
+{"language": "./data/LTT426", "test_set": "test_la", "accuracy": 1.0, "f1": {"f1": 1.0}}

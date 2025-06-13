@@ -1,0 +1,4 @@
+{"language": "./data/ZP316", "test_set": "test_sr", "accuracy": 0.5027, "f1": {"f1": 0.3933884463858399}}
+{"language": "./data/ZP316", "test_set": "test_sa", "accuracy": 0.4982, "f1": {"f1": 0.38424004988121896}}
+{"language": "./data/ZP316", "test_set": "test_lr", "accuracy": 0.5008, "f1": {"f1": 0.3415401281432556}}
+{"language": "./data/ZP316", "test_set": "test_la", "accuracy": 0.4992, "f1": {"f1": 0.3396010050724128}}

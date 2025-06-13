@@ -1,0 +1,4 @@
+{"language": "./data/Reg006", "test_set": "test_sr", "accuracy": 0.5778, "f1": {"f1": 0.49338396901765785}}
+{"language": "./data/Reg006", "test_set": "test_sa", "accuracy": 0.5039, "f1": {"f1": 0.3570599425547768}}
+{"language": "./data/Reg006", "test_set": "test_lr", "accuracy": 0.6335, "f1": {"f1": 0.6271304598083719}}
+{"language": "./data/Reg006", "test_set": "test_la", "accuracy": 0.5187, "f1": {"f1": 0.48987741594262485}}

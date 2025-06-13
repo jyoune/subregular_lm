@@ -1,0 +1,4 @@
+{"language": "./data/PLT423", "test_set": "test_sr", "accuracy": 0.6097, "f1": {"f1": 0.5827601541484753}}
+{"language": "./data/PLT423", "test_set": "test_sa", "accuracy": 0.5349, "f1": {"f1": 0.4831232977644888}}
+{"language": "./data/PLT423", "test_set": "test_lr", "accuracy": 0.5928, "f1": {"f1": 0.588586533669383}}
+{"language": "./data/PLT423", "test_set": "test_la", "accuracy": 0.5347, "f1": {"f1": 0.5257333970377448}}

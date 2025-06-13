@@ -1,0 +1,4 @@
+{"language": "./data/LTT423", "test_set": "test_sr", "accuracy": 0.9695, "f1": {"f1": 0.9694930441089873}}
+{"language": "./data/LTT423", "test_set": "test_sa", "accuracy": 0.7216, "f1": {"f1": 0.7013156402331437}}
+{"language": "./data/LTT423", "test_set": "test_lr", "accuracy": 0.9686, "f1": {"f1": 0.9685998982636703}}
+{"language": "./data/LTT423", "test_set": "test_la", "accuracy": 0.7876, "f1": {"f1": 0.7810000059389829}}

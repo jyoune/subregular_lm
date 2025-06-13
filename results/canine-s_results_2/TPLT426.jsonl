@@ -1,0 +1,4 @@
+{"language": "./data/TPLT426", "test_set": "test_sr", "accuracy": 0.5447, "f1": {"f1": 0.46464462168147425}}
+{"language": "./data/TPLT426", "test_set": "test_sa", "accuracy": 0.5178, "f1": {"f1": 0.4327567073519624}}
+{"language": "./data/TPLT426", "test_set": "test_lr", "accuracy": 0.5197, "f1": {"f1": 0.41167662057643567}}
+{"language": "./data/TPLT426", "test_set": "test_la", "accuracy": 0.5052, "f1": {"f1": 0.3948666395163825}}
