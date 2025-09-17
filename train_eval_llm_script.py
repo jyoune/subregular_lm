@@ -9,7 +9,7 @@ from tqdm import tqdm
 from train_llm import train_llm
 from eval_llm import evaluate_llm
 
-os.environ["HUGGINGFACE_HUB_TOKEN"] = "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"
+
 device = "cuda"
 # device = "cpu"
 base_model_name = 'meta-llama/Llama-3.2-3B'

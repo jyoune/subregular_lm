@@ -7,7 +7,7 @@ import evaluate
 import jsonlines
 import os
 from huggingface_hub import login
-login("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")
+
 
 
 #TODO: fix prompt function - include representation of regular language and ask about string membership?
@@ -85,9 +85,8 @@ def train_llm(model_name: str, data, tokenizer, model_output:str):
 
 
 if __name__ == "__main__":
-    os.environ["HUGGINGFACE_HUB_TOKEN"] = "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"
+
     device = "cuda"
-    # device = "cpu"
     directory = "data/ZP313"
     out_file = "llm_ZP313.jsonl"
     model_name = 'meta-llama/Llama-3.2-3B'
@@ -97,7 +96,6 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=False)
     tokenizer.pad_token = tokenizer.eos_token
     dataset = load_data(directory=directory, use_spaces=True)
-    # tokenized_dataset = dataset.map(tokenize_data, batched=True)
     train_llm(model_name=model_name, data=dataset, tokenizer=tokenizer, model_output="./llama/llama_model_ZP313")
     
 
