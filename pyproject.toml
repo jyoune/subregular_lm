@@ -1,0 +1,20 @@
+[project]
+name = "subregular-lm"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "pandas",
+    "transformers",
+    "torch",
+    "datasets",
+    "evaluate",
+    "peft",
+    "jsonlines",
+    "trl",
+    "huggingface-hub",
+    "streamlit",
+    "scikit-learn>=1.7.2",
+]
